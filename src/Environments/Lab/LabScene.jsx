@@ -19,7 +19,6 @@ import DoubleDoor from "../../assets/3D_components/double_door_692.glb";
 import WindowBlind from "../../assets/3D_components/not_see_through_window.glb";
 
 import maleAvatarModel from "../../assets/avatars/maleStudent.glb";
-
 import womanExplainingSomething from "../../assets/3D_components/explaining_something.glb";
 
 import PdfViewer from "../../PdfViewer.jsx";
@@ -64,6 +63,8 @@ function LabScene({ video , pdf , assets=[] }) {
                     <img id="ceilingTexture" src={ceilingTexture} />
                     <img id="play" src="" alt="../../assets/icons/play.webp" />
                     <img id="pause" src="" alt="../../assets/icons/pause.webp" />
+                    <a-asset-item id="wolfModel" src="https://sketchfab.com/3d-models/wolf-with-animations-f3769a474a714ebbbaca0d97f9b0a5a0"></a-asset-item>
+
                 </a-assets>
 
                 {/* Ambient Lighting */}
@@ -77,7 +78,7 @@ function LabScene({ video , pdf , assets=[] }) {
                 </a-camera>
 
                 {/* Camera with avatar model as a child */}
-                <a-entity id="rig" position="12 8 12"  rotation="0 -180 0" movement-controls>
+                <a-entity id="rig" position="12 8 12"  rotation="0 -180 0" movement-controls >
                     <a-camera wasd-controls="acceleration: 90" look-controls="pointerLockEnabled: true">
                         {/* The avatar model is positioned relative to the camera */}
                         <a-gltf-model 
@@ -235,12 +236,16 @@ function LabScene({ video , pdf , assets=[] }) {
 
 
                 <a-gltf-model  
-                    src={womanExplainingSomething}
-                    position="-30 0 -16"
-                    scale="3.8 3.8 3.8"
-                    rotation="0 90 0"
-                    animation-mixer="clip: *; timeScale: 1"
+                src={womanExplainingSomething}
+                position="-30 0 -16"
+                scale="3.8 3.8 3.8"
+                rotation="0 90 0"
+                animation-mixer="clip: mixamo ; autoplay: true"
                 ></a-gltf-model>
+
+
+
+
                 {/* Desks with chairs with lights and pcs */}
                 <DeskEntity position="-24 0 -36" rotation="0 0 0"/>
                 <DeskEntity position="-12 0 -36" rotation="0 0 0"/>
@@ -345,10 +350,10 @@ function LabScene({ video , pdf , assets=[] }) {
 
 
                 <AssetViewer
-                asset={lights}
-                position="0 1 -5"
-                rotation="0 180 0"
-                scale="1 1 1"
+                    asset={lights}
+                    position="0 1 -5"
+                    rotation="0 180 0"
+                    scale="1 1 1"
                 />
 
                 {/* Shared desk

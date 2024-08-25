@@ -10,11 +10,18 @@ function AssetViewer({ asset, position = "0 0 0", rotation = "0 0 0", scale = "1
 
   const startContinuousChange = useCallback((changeFunction, axis, delta) => {
     changeFunction(axis, delta); // Initial change
+
+    // Clear any previous interval to avoid multiple intervals running
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
     intervalRef.current = setInterval(() => changeFunction(axis, delta), 100);
   }, []);
 
   const stopContinuousChange = useCallback(() => {
     clearInterval(intervalRef.current);
+    intervalRef.current = null; // Reset the interval reference
   }, []);
 
   const handlePositionChange = (axis, delta) => {
@@ -56,7 +63,7 @@ function AssetViewer({ asset, position = "0 0 0", rotation = "0 0 0", scale = "1
       ></a-entity>
 
       {/* Controls for adjusting position */}
-      <a-entity position="0 3 -5">
+      <a-entity position="0 6 -5" scale="1.4 1.4 1.4">
         <a-text value="Position Controls" position="1 2 0" align="center" color="#FFF"></a-text>
         {['X', 'Y', 'Z'].map((axis, index) => (
           <a-entity key={axis} position={`0 ${1.5 - index * 0.5} 0`}>
@@ -68,7 +75,7 @@ function AssetViewer({ asset, position = "0 0 0", rotation = "0 0 0", scale = "1
               position="0.5 0 0"
               class="clickable"
               rotation="0 0 180"
-              onMouseDown={() => startContinuousChange(handlePositionChange, index, -0.1)}
+              onMouseDown={() => startContinuousChange(handlePositionChange, index, -0.5)}
               onMouseUp={stopContinuousChange}
               onMouseLeave={stopContinuousChange}
             ></a-image>
@@ -78,7 +85,7 @@ function AssetViewer({ asset, position = "0 0 0", rotation = "0 0 0", scale = "1
               height="0.5"
               position="1.5 0 0"
               class="clickable"
-              onMouseDown={() => startContinuousChange(handlePositionChange, index, 0.1)}
+              onMouseDown={() => startContinuousChange(handlePositionChange, index, 0.5)}
               onMouseUp={stopContinuousChange}
               onMouseLeave={stopContinuousChange}
             ></a-image>
@@ -87,11 +94,11 @@ function AssetViewer({ asset, position = "0 0 0", rotation = "0 0 0", scale = "1
       </a-entity>
 
       {/* Controls for adjusting rotation */}
-      <a-entity position="2 3 -5">
+      <a-entity position="2 6 -5" scale="1.4 1.4 1.4">
         <a-text value="Rotation Controls" position="1 2 0" align="center" color="#FFF"></a-text>
         {['X', 'Y', 'Z'].map((axis, index) => (
           <a-entity key={axis} position={`0 ${1.5 - index * 0.5} 0`}>
-            <a-text value={`${axis}: ${rot[index].toFixed(1)}`} align="center" position="1s 0 0" color="#FFF"></a-text>
+            <a-text value={`${axis}: ${rot[index].toFixed(1)}`} align="center" position="1 0 0" color="#FFF"></a-text>
             <a-image
               src={arrow}
               width="0.5"
@@ -118,11 +125,11 @@ function AssetViewer({ asset, position = "0 0 0", rotation = "0 0 0", scale = "1
       </a-entity>
 
       {/* Controls for adjusting scale */}
-      <a-entity position="-2 3 -5">
+      <a-entity position="-2 6 -5" scale="1.4 1.4 1.4">
         <a-text value="Scale Controls" position="1 2 0" align="center" color="#FFF"></a-text>
         {['X', 'Y', 'Z'].map((axis, index) => (
           <a-entity key={axis} position={`0 ${1.5 - index * 0.5} 0`}>
-            <a-text value={`${axis}: ${scl[index].toFixed(2)}`} align="center" position="1s 0 0" color="#FFF"></a-text>
+            <a-text value={`${axis}: ${scl[index].toFixed(2)}`} align="center" position="1 0 0" color="#FFF"></a-text>
             <a-image
               src={arrow}
               width="0.5"
