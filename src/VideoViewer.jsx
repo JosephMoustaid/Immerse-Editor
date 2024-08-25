@@ -1,0 +1,71 @@
+import React, { useRef, useState, useEffect } from 'react';
+import pause from "./assets/icons/pause.webp";
+import play from "./assets/icons/play.webp";
+
+function VideoViewer({ videoPath, position = "0 0 0", rotation = "0 0 0", scale = "1 1 1" }) {
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handleToggle = () => {
+    const video = videoRef.current?.getObject3D('mesh')?.material?.map?.image;
+
+    if (video) {
+      if (video.paused) {
+        video.play();
+        setIsPlaying(true);
+      } else {
+        video.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const videoEl = videoRef.current;
+
+    if (videoEl) {
+      videoEl.addEventListener('loadeddata', () => {
+        // Ensure the video element is fully loaded before setting up controls
+        videoEl.play();
+        setIsPlaying(true);
+      });
+    }
+
+    return () => {
+      if (videoEl) {
+        videoEl.removeEventListener('loadeddata', handleToggle);
+      }
+    };
+  }, []);
+
+  return (
+    <a-entity position={position} rotation={rotation} scale={scale}>
+      <a-video
+        ref={videoRef}
+        src={videoPath}
+        position="0 0 0"
+        rotation="0 0 0"
+        width="4"
+        height="2.25"
+        paused="true"
+        loop="true"
+        preload="auto"
+      />
+      <a-entity position="0 -1 0.1" rotation="0 0 0">
+        <a-image 
+          src={isPlaying ? pause : play}
+          position="0 0 0" 
+          width="0.5" 
+          height="0.5" 
+          depth="0.1" 
+          class="clickable"
+          onClick={handleToggle}  // Use React's onClick handler
+        />
+      </a-entity>
+    </a-entity>
+  );
+}
+
+export default VideoViewer;
+
+

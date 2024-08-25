@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+.rounded{
+  border-radius: 10px;
+}
+
+a{
+  color: #000000;
+  padding: 8px;
+  margin: 5px;
+  text-decoration: none;
+}
+a:hover{
+  color: #292929;
+}
+.leave-link{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.assets , .leave-link, .top-assets{
+  margin: 5px;
+  background-color: #ffffffaf;
+  color: black;
+  padding: 8px;
+
+}
+.assets {
+  position: absolute;
+  margin: 5px;
+  min-width: 300px;
+  bottom: 0px;
+  right: 0px;
+}
+.top-assets{
+  position: absolute;
+  top:0px;
+  right: 0px;
+  text-align: center;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  min-width: 150px;
+}
+.top-assets .asset-item{
+  padding: 10px;
+}
+.top-assets .asset-item:hover{
+  background-color: #b1b1b1;
+  cursor: pointer;
+}
+.ms-1{
+  margin-left:.5em;
+}
+.ms-1{
+  margin-left:1em;
+}
+.ms-1{
+  margin-left:1.5em;
+}
+.ms-1{
+  margin-left:2em;
+}
+.ms-1{
+  margin-left:2.5em;
+}
+.ps-1{
+  padding-left: .5em;
+}
+.ps-2{
+  padding-left: 1em;
+}
+.ps-3{
+  padding-left: 1.5em;
+}
+.ps-4{
+  padding-left: 2em;
+}
+.ps-5{
+  padding-left: 2.5em;
+}
