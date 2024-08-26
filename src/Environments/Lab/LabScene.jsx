@@ -1,6 +1,7 @@
-import wallTexture from "../../assets/textures/wall.png";
+import wallTexture from "../../assets/textures/blueWall2.jpg";
+//import wallTexture from "../../assets/textures/greyWall.jpg";
 import floorTexture from "../../assets/textures/floor.png";
-import ceilingTexture from "../../assets/textures/ceiling.png";
+import ceilingTexture from "../../assets/textures/ceilingLamps.jpg";
 
 import lights from "../../assets/3D_Components/ceiling_lamp_-_11mb.glb";
 
@@ -23,9 +24,17 @@ import womanExplainingSomething from "../../assets/3D_components/explaining_some
 
 import PdfViewer from "../../PdfViewer.jsx";
 import VideoViewer from "../../VideoViewer.jsx";
-import AssetViewer from "../../assetViewer.jsx";
+import AssetViewer from "../../AssetViewer.jsx";
+
 
 import { useState , useRef } from "react";
+
+import AC from "../../assets/3D_components/conditioner_slide_dc.glb";
+import pcCharger from "../../assets/3D_components/low_poly_pc_cable.glb";
+//import cableWiring from "../../assets/3D_components/power_cable_wiring.glb";
+import cableWiring from "../../assets/3D_components/factory_parts.glb";
+import securityCamera from "../../assets/3D_components/security_camera.glb";
+
 
 import pdfUrl from "../../assets/PDFs/rapport.pdf";
 import videoPath from "../../assets/videos/courseName_courseId.mp4";
@@ -33,7 +42,7 @@ import videoPath from "../../assets/videos/courseName_courseId.mp4";
 function LabScene({ video , pdf , assets=[] }) {
 
     {/* Script to play and pause the video */}
-    const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
   const controlRef = useRef(null);
 
@@ -63,7 +72,6 @@ function LabScene({ video , pdf , assets=[] }) {
                     <img id="ceilingTexture" src={ceilingTexture} />
                     <img id="play" src="" alt="../../assets/icons/play.webp" />
                     <img id="pause" src="" alt="../../assets/icons/pause.webp" />
-                    <a-asset-item id="wolfModel" src="https://sketchfab.com/3d-models/wolf-with-animations-f3769a474a714ebbbaca0d97f9b0a5a0"></a-asset-item>
 
                 </a-assets>
 
@@ -105,7 +113,7 @@ function LabScene({ video , pdf , assets=[] }) {
                     width="80" 
                     height="20" 
                     depth="0.1" 
-                    material="src: #wallTexture; repeat: 20 10" 
+                    material="src: #wallTexture; " 
                 />
 
                 <a-box 
@@ -114,7 +122,7 @@ function LabScene({ video , pdf , assets=[] }) {
                     width="80" 
                     height="20" 
                     depth="0.1" 
-                    material="src: #wallTexture; repeat: 20 10" 
+                    material="src: #wallTexture; " 
                 />
 
                 <a-box 
@@ -123,7 +131,7 @@ function LabScene({ video , pdf , assets=[] }) {
                     width="80" 
                     height="20" 
                     depth="0.1" 
-                    material="src: #wallTexture; repeat: 20 10" 
+                    material="src: #wallTexture;" 
                 />
 
                 <a-box 
@@ -132,7 +140,7 @@ function LabScene({ video , pdf , assets=[] }) {
                     width="80" 
                     height="20" 
                     depth="0.1" 
-                    material="src: #wallTexture; repeat: 20 10" 
+                    material="src: #wallTexture;" 
                 />
 
                 {/* Ceiling */}
@@ -141,86 +149,87 @@ function LabScene({ video , pdf , assets=[] }) {
                     rotation="90 0 0" 
                     width="80" 
                     height="80" 
-                    material="src: #ceilingTexture; repeat: 20 10" 
+                    material="src: #ceilingTexture; repeat: 4 5" 
                 />
 
                 {/* Ceiling Lamps with Lights */}
                 <a-entity>
+                    {/* 
                     <a-gltf-model 
                         src={lights} 
                         position="-20 18 -20" 
                         scale="1 1 1"
-                    ></a-gltf-model>
+                    ></a-gltf-model> */}
                     <a-entity 
                         light="type: point; intensity: .5; distance: 40" 
                         position="-20 5 -20"
                     ></a-entity>
-
+                    {/*
                     <a-gltf-model 
                         src={lights} 
                         position="0 18 -20" 
                         scale="1 1 1"
-                    ></a-gltf-model>
+                    ></a-gltf-model>*/}
                     <a-entity 
                         light="type: point; intensity: .5; distance: 40" 
                         position="0 5 -20"
                     ></a-entity>
-
+                    {/*
                     <a-gltf-model 
                         src={lights} 
                         position="20 18 -20" 
                         scale="1 1 1"
-                    ></a-gltf-model>
+                    ></a-gltf-model>*/}
                     <a-entity 
                         light="type: point; intensity: .5; distance: 40" 
                         position="20 5 -20"
                     ></a-entity>
-
+                    {/*
                     <a-gltf-model 
                         src={lights} 
                         position="-20 18 0" 
                         scale="1 1 1"
-                    ></a-gltf-model>
+                    ></a-gltf-model>*/}
                     <a-entity 
                         light="type: point; intensity: .5; distance: 40" 
                         position="-20 5 0"
                     ></a-entity>
-
+                    {/*
                     <a-gltf-model 
                         src={lights} 
                         position="20 18 0" 
                         scale="1 1 1"
-                    ></a-gltf-model>
+                    ></a-gltf-model>*/}
                     <a-entity 
                         light="type: point; intensity: .5; distance: 40" 
                         position="20 5 0"
                     ></a-entity>
-
+                    {/*
                     <a-gltf-model 
                         src={lights} 
                         position="-20 18 20" 
                         scale="1 1 1"
-                    ></a-gltf-model>
+                    ></a-gltf-model>*/}
                     <a-entity 
                         light="type: point; intensity: .5; distance: 40" 
                         position="-20 5 20"
                     ></a-entity>
-
+                    {/*
                     <a-gltf-model 
                         src={lights} 
                         position="0 18 20" 
                         scale="1 1 1"
-                    ></a-gltf-model>
+                    ></a-gltf-model>*/}
                     <a-entity 
                         light="type: point; intensity: .5; distance: 40" 
                         position="0 5 20"
                     ></a-entity>
-
+                    {/*
                     <a-gltf-model 
                         src={lights} 
                         position="20 18 20" 
                         scale="1 1 1"
-                    ></a-gltf-model>
+                    ></a-gltf-model>*/}
                     <a-entity 
                         light="type: point; intensity: .5; distance: 40" 
                         position="20 5 20"
@@ -336,7 +345,49 @@ function LabScene({ video , pdf , assets=[] }) {
                     scale="5 5 5"
                     rotation="0 90 0"
                 ></a-gltf-model>
-                {/* PDF Viewer */}
+
+                {/*AC */}
+                <a-gltf-model  
+                    src={AC}
+                    position="39 18 5"
+                    scale="13 9 9"
+                    rotation="0 -90 0"
+                ></a-gltf-model>
+                <a-gltf-model  
+                    src={AC}
+                    position="-39 18 0"
+                    scale="13 9 9"
+                    rotation="0 90 0"
+                ></a-gltf-model>
+
+                <a-gltf-model  
+                    src={pcCharger}
+                    position="37.1 0 3"
+                    scale="2 2 2"
+                    rotation="0 180 0"
+                ></a-gltf-model>
+                <a-gltf-model  
+                    src={cableWiring}
+                    position="-30 7 -12"
+                    scale=".4 .65 .4"
+                    rotation="0 135 0"
+                ></a-gltf-model>
+
+
+                <a-gltf-model  
+                    src={securityCamera}
+                    position="-39 20 -39"
+                    scale=".5 .5 .5"
+                    rotation="180 -120 0"
+                ></a-gltf-model>
+                <a-gltf-model  
+                    src={securityCamera}
+                    position="39 20 39"
+                    scale=".5 .5 .5"
+                    rotation="180 50 0"
+                ></a-gltf-model>
+
+                
                 {/* PDF Viewer */}
                 <PdfViewer pdf={pdfUrl} scale={2.5} rotation="0 -90 0" position="34 5 19" />
 
@@ -347,19 +398,19 @@ function LabScene({ video , pdf , assets=[] }) {
                     rotation="0 -90 0" 
                     scale="5 5 5" 
                 />
-
-
+                
+                
                 <AssetViewer
                     asset={lights}
-                    position="0 1 -5"
-                    rotation="0 180 0"
+                    position="20 5 -20"
+                    rotation="0 -45 0"
                     scale="1 1 1"
                 />
-
-                {/* Shared desk
+                
+            
                 <SharedDesk position='0 0 0' rotation='0 0 0'/>
                 <SharedDesk position='0 0 -20' rotation='0 0 0'/>
-                */}
+                
 
             </a-scene>
         </>

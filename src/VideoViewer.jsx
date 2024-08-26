@@ -6,9 +6,10 @@ function VideoViewer({ videoPath, position = "0 0 0", rotation = "0 0 0", scale 
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
+
   const handleToggle = () => {
     const video = videoRef.current?.getObject3D('mesh')?.material?.map?.image;
-
+    
     if (video) {
       if (video.paused) {
         video.play();
@@ -24,11 +25,8 @@ function VideoViewer({ videoPath, position = "0 0 0", rotation = "0 0 0", scale 
     const videoEl = videoRef.current;
 
     if (videoEl) {
-      videoEl.addEventListener('loadeddata', () => {
-        // Ensure the video element is fully loaded before setting up controls
-        videoEl.play();
-        setIsPlaying(true);
-      });
+      // Ensure the video is paused initially
+      setIsPlaying(false);
     }
 
     return () => {
@@ -47,9 +45,10 @@ function VideoViewer({ videoPath, position = "0 0 0", rotation = "0 0 0", scale 
         rotation="0 0 0"
         width="4"
         height="2.25"
-        paused="true"
         loop="true"
         preload="auto"
+        paused
+        autoplay={false} // Ensure autoplay is disabled
       />
       <a-entity position="0 -1 0.1" rotation="0 0 0">
         <a-image 
@@ -67,5 +66,3 @@ function VideoViewer({ videoPath, position = "0 0 0", rotation = "0 0 0", scale 
 }
 
 export default VideoViewer;
-
-
