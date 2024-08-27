@@ -1,15 +1,14 @@
 import React from 'react';
 import PdfViewer from './PdfViewer';
 import pdf from "./assets/PDFs/rapport.pdf";
+import AnnotationsMaker from './Annotations/AnnotationsMaker.jsx';
+import arduino from "./assets/3D_Components/arduino_uno.glb";
 
 const Test = () => {
   return (
-    <a-scene>
-      <a-camera>
-        <a-cursor color="#FF0000"></a-cursor>
-      </a-camera>
-      <PdfViewer pdf={pdf}/>
-    </a-scene>
+    <>
+      <AnnotationsMaker modelUrl={arduino}/>
+    </>
   );
 };
 

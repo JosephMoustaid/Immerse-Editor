@@ -19,6 +19,7 @@ import SharedDesk from '../../EnvironmentComponents/SharedDesk.jsx';
 import DoubleDoor from "../../assets/3D_components/double_door_692.glb";
 import WindowBlind from "../../assets/3D_components/not_see_through_window.glb";
 
+import arduino_uno from "../../assets/3D_components/arduino_uno.glb"
 import maleAvatarModel from "../../assets/avatars/maleStudent.glb";
 import womanExplainingSomething from "../../assets/3D_components/explaining_something.glb";
 
@@ -27,7 +28,7 @@ import VideoViewer from "../../VideoViewer.jsx";
 import AssetViewer from "../../AssetViewer.jsx";
 
 
-import { useState , useRef } from "react";
+import { useState , useRef , useEffect} from "react";
 
 import AC from "../../assets/3D_components/conditioner_slide_dc.glb";
 import pcCharger from "../../assets/3D_components/low_poly_pc_cable.glb";
@@ -36,12 +37,24 @@ import cableWiring from "../../assets/3D_components/factory_parts.glb";
 import securityCamera from "../../assets/3D_components/security_camera.glb";
 
 
+
+
 import pdfUrl from "../../assets/PDFs/rapport.pdf";
 import videoPath from "../../assets/videos/courseName_courseId.mp4";
 
 function LabScene({ video , pdf , assets=[] }) {
 
-    {/* Script to play and pause the video */}
+
+  const tofferLightsPositions= [
+    ["-35 15 -40","-35 15 -32","-35 15 -24","-35 15 -16","-35 15 -8","-35 15 0","-35 15 8","-35 15 16","-35 15 24","-35 15 32", "-35 15 40"],
+    ["-25 15 -40","-25 15 -32","-25 15 -24","-25 15 -16","-25 15 -8","-25 15 0","-25 15 8","-25 15 16","-25 15 24","-25 15 32", "-25 15 40"],
+    ["-15 15 -40","-15 15 -32","-15 15 -24","-15 15 -16","-15 15 -8","-15 15 0","-15 15 8","-15 15 16","-15 15 24","-15 15 32", "-15 15 40"],
+    ["0 15 -40","0 15 -32","0 15 -24","0 15 -16","0 15 -8","0 15 0","0 15 8","0 15 16","0 15 24","0 15 32", "0 15 40"],
+    ["15 15 -40","15 15 -32","15 15 -24","15 15 -16","15-35 15 -8","15 15 0","15 15 8","15 15 16","15 15 24","15 15 32", "15 15 40"],
+    ["25 15 -40","25 15 -32","25 15 -24","25 15 -16","25 15 -8","25 15 0","25 15 8","25 15 16","25 15 24","25 15 32", "25 15 40"],
+    ["35 15 -40","35 15 -32","35 15 -24","35 15 -16","35 15 -8","35 15 0","35 15 8","35 15 16","35 15 24","35 15 32", "35 15 40"],
+  ];
+{/* Script to play and pause the video */}
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
   const controlRef = useRef(null);
@@ -154,87 +167,21 @@ function LabScene({ video , pdf , assets=[] }) {
 
                 {/* Ceiling Lamps with Lights */}
                 <a-entity>
-                    {/* 
-                    <a-gltf-model 
-                        src={lights} 
-                        position="-20 18 -20" 
-                        scale="1 1 1"
-                    ></a-gltf-model> */}
-                    <a-entity 
-                        light="type: point; intensity: .5; distance: 40" 
-                        position="-20 5 -20"
-                    ></a-entity>
-                    {/*
-                    <a-gltf-model 
-                        src={lights} 
-                        position="0 18 -20" 
-                        scale="1 1 1"
-                    ></a-gltf-model>*/}
-                    <a-entity 
-                        light="type: point; intensity: .5; distance: 40" 
-                        position="0 5 -20"
-                    ></a-entity>
-                    {/*
-                    <a-gltf-model 
-                        src={lights} 
-                        position="20 18 -20" 
-                        scale="1 1 1"
-                    ></a-gltf-model>*/}
-                    <a-entity 
-                        light="type: point; intensity: .5; distance: 40" 
-                        position="20 5 -20"
-                    ></a-entity>
-                    {/*
-                    <a-gltf-model 
-                        src={lights} 
-                        position="-20 18 0" 
-                        scale="1 1 1"
-                    ></a-gltf-model>*/}
-                    <a-entity 
-                        light="type: point; intensity: .5; distance: 40" 
-                        position="-20 5 0"
-                    ></a-entity>
-                    {/*
-                    <a-gltf-model 
-                        src={lights} 
-                        position="20 18 0" 
-                        scale="1 1 1"
-                    ></a-gltf-model>*/}
-                    <a-entity 
-                        light="type: point; intensity: .5; distance: 40" 
-                        position="20 5 0"
-                    ></a-entity>
-                    {/*
-                    <a-gltf-model 
-                        src={lights} 
-                        position="-20 18 20" 
-                        scale="1 1 1"
-                    ></a-gltf-model>*/}
-                    <a-entity 
-                        light="type: point; intensity: .5; distance: 40" 
-                        position="-20 5 20"
-                    ></a-entity>
-                    {/*
-                    <a-gltf-model 
-                        src={lights} 
-                        position="0 18 20" 
-                        scale="1 1 1"
-                    ></a-gltf-model>*/}
-                    <a-entity 
-                        light="type: point; intensity: .5; distance: 40" 
-                        position="0 5 20"
-                    ></a-entity>
-                    {/*
-                    <a-gltf-model 
-                        src={lights} 
-                        position="20 18 20" 
-                        scale="1 1 1"
-                    ></a-gltf-model>*/}
-                    <a-entity 
-                        light="type: point; intensity: .5; distance: 40" 
-                        position="20 5 20"
-                    ></a-entity>    
+                {/*
+                    tofferLightsPositions.map((row, rowIndex) => (
+                        row.map((position, colIndex) => (
+                        <a-entity 
+                            key={`${rowIndex}-${colIndex}`} 
+                            light="type: point; intensity: 1; distance: 10" 
+                            position={position}
+                        ></a-entity>
+                        ))
+                    ))
+                    */}
+
                 </a-entity>
+
+                
                 {/* Teacher Desk */}
                 <a-gltf-model 
                     src={teacherDesk} 
@@ -387,6 +334,12 @@ function LabScene({ video , pdf , assets=[] }) {
                     rotation="180 50 0"
                 ></a-gltf-model>
 
+
+
+
+                <a-entity threejs-box position="0 1.6 -3"></a-entity>
+
+
                 
                 {/* PDF Viewer */}
                 <PdfViewer pdf={pdfUrl} scale={2.5} rotation="0 -90 0" position="34 5 19" />
@@ -401,7 +354,7 @@ function LabScene({ video , pdf , assets=[] }) {
                 
                 
                 <AssetViewer
-                    asset={lights}
+                    asset={arduino_uno}
                     position="20 5 -20"
                     rotation="0 -45 0"
                     scale="1 1 1"
