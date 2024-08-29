@@ -1,6 +1,7 @@
 import React, { useRef, useState, useCallback } from 'react';
 import arrow from "./assets/icons/next.png";
 import finished from "./assets/icons/finished.png";
+import rotate from "./assets/icons/rotate.png";
 
 function AssetViewer({ asset, position = "0 0 0", rotation = "0 0 0", scale = "1 1 1" }) {
   const assetRef = useRef(null);
@@ -43,12 +44,13 @@ function AssetViewer({ asset, position = "0 0 0", rotation = "0 0 0", scale = "1
     }
   };
 
-  const handleScaleChange = (axis, delta) => {
-    const newScl = [...scl];
-    newScl[axis] = Math.max(newScl[axis] + delta, 0.5); // Prevents scale from going below 0.5
-    setScl(newScl);
+  const handleUniformScaleChange = (delta) => {
+    // Adjust uniform scale for all axes
+    const newScaleValue = Math.max(scl[0] + delta, 0.5); // Minimum scale of 0.5
+    const newScale = [newScaleValue, newScaleValue, newScaleValue];
+    setScl(newScale);
     if (assetRef.current) {
-      assetRef.current.setAttribute('scale', newScl.join(' '));
+      assetRef.current.setAttribute('scale', newScale.join(' '));
     }
   };
 
@@ -64,16 +66,14 @@ function AssetViewer({ asset, position = "0 0 0", rotation = "0 0 0", scale = "1
       <a-entity
         ref={assetRef}
         gltf-model={`url(${asset})`}
-        position="30 5 -9"
+        position={pos.join(' ')}
         rotation={rot.join(' ')}
         scale={scl.join(' ')}
       ></a-entity>
 
-
-
       {/* Controls for adjusting position */}
       <a-entity position="38 14 4.5" scale="1.4 1.4 1.4" rotation="0 -90 0">
-        <a-text value="Here you can controll the placement and scale of the asset :"  align="center" color="#FFF"></a-text>
+        <a-text value="Here you can control the placement and scale of the asset:" align="center" color="#FFF"></a-text>
       </a-entity>
 
       {/* Controls for adjusting position */}
@@ -108,11 +108,11 @@ function AssetViewer({ asset, position = "0 0 0", rotation = "0 0 0", scale = "1
       </a-entity>
 
       {/* Controls for adjusting rotation */}
-      <a-entity position="38 10 3" scale="1.4 1.4 1.4"  rotation="0 -90 0">
+      <a-entity position="38 10 3" scale="1.4 1.4 1.4" rotation="0 -90 0">
         <a-text value="Rotation Controls" position="1 2 0" align="center" color="#FFF"></a-text>
         {['X', 'Y', 'Z'].map((axis, index) => (
           <a-entity key={axis} position={`0 ${1.5 - index * 0.5} 0`}>
-            <a-text value={`${axis}: ${rot[index].toFixed(1)}`} align="center" position="1 0 0" color="#FFF"></a-text>
+            <a-text value={`${axis}: ${rot[index].toFixed(2)}`} align="center" position="1 0 0" color="#FFF"></a-text>
             <a-image
               src={arrow}
               width="0.5"
@@ -138,39 +138,37 @@ function AssetViewer({ asset, position = "0 0 0", rotation = "0 0 0", scale = "1
         ))}
       </a-entity>
 
-      {/* Controls for adjusting scale */}
-      <a-entity position="38 10 6" scale="1.4 1.4 1.4"  rotation="0 -90 0">
+      {/* Controls for adjusting uniform scale */}
+      <a-entity position="38 10 6" scale="1.4 1.4 1.4" rotation="0 -90 0">
         <a-text value="Scale Controls" position="1 2 0" align="center" color="#FFF"></a-text>
-        {['X', 'Y', 'Z'].map((axis, index) => (
-          <a-entity key={axis} position={`0 ${1.5 - index * 0.5} 0`}>
-            <a-text value={`${axis}: ${scl[index].toFixed(2)}`} align="center" position="1 0 0" color="#FFF"></a-text>
-            <a-image
-              src={arrow}
-              width="0.5"
-              height="0.5"
-              position="0.5 0 0"
-              class="clickable"
-              rotation="0 0 180"
-              onMouseDown={() => startContinuousChange(handleScaleChange, index, -0.1)}
-              onMouseUp={stopContinuousChange}
-              onMouseLeave={stopContinuousChange}
-            ></a-image>
-            <a-image
-              src={arrow}
-              width="0.5"
-              height="0.5"
-              position="1.5 0 0"
-              class="clickable"
-              onMouseDown={() => startContinuousChange(handleScaleChange, index, 0.1)}
-              onMouseUp={stopContinuousChange}
-              onMouseLeave={stopContinuousChange}
-            ></a-image>
-          </a-entity>
-        ))}
+        <a-entity position="0 1 0">
+          <a-text value={` ${scl[0].toFixed(2)}`} align="center" position="1 0 0" color="#FFF"></a-text>
+          <a-image
+            src={arrow}
+            width="0.5"
+            height="0.5"
+            position="0.5 0 0"
+            class="clickable"
+            rotation="0 0 180"
+            onMouseDown={() => startContinuousChange(handleUniformScaleChange, -0.1)}
+            onMouseUp={stopContinuousChange}
+            onMouseLeave={stopContinuousChange}
+          ></a-image>
+          <a-image
+            src={arrow}
+            width="0.5"
+            height="0.5"
+            position="1.5 0 0"
+            class="clickable"
+            onMouseDown={() => startContinuousChange(handleUniformScaleChange, 0.1)}
+            onMouseUp={stopContinuousChange}
+            onMouseLeave={stopContinuousChange}
+          ></a-image>
+        </a-entity>
       </a-entity>
 
       {/* Finish Button */}
-      <a-entity position="38 9.5 4" scale="1.4 1.4 1.4"  rotation="0 -90 0">
+      <a-entity position="38 9.5 4" scale="1.4 1.4 1.4" rotation="0 -90 0">
         <a-image
           src={finished}
           width="0.5"

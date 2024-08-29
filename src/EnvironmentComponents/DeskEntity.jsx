@@ -18,10 +18,10 @@ function DeskEntity({ position = "0 0 0", rotation = "0 0 0" }) {
                 scale=".06 .06 .06"
                 rotation="0 200 0"
             ></a-gltf-model>
-            <a-entity 
+            {/*<a-entity 
                 light="type: point; intensity: .7; distance: 10"  
                 position="5 5.5 -2"
-            ></a-entity>
+            ></a-entity> */}
             <a-gltf-model 
                 src={desktopPc} 
                 position="0 5.7 0" 

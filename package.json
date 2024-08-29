@@ -15,6 +15,7 @@
     "aframe": "^1.6.0",
     "aframe-orbit-controls-component-2": "^0.1.14",
     "aframe-react": "^4.4.0",
+    "aframe-slice9-component": "^1.0.0",
     "pdfjs-dist": "^4.5.136",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

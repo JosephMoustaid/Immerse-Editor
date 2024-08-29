@@ -33,7 +33,7 @@ function App(props) {
       {loading ? (
         <Loader />
       ) : (
-        <div className="container-fluid bg-dynamic">
+        <div className="dark-theme container-fluid bg-dynamic">
           <div className="row bg-dynamic">
             <div className="content">
               <Outlet /> {/* Corrected Outlet component */}

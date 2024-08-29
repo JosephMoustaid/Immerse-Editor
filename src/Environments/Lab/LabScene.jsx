@@ -1,6 +1,7 @@
 import wallTexture from "../../assets/textures/blueWall2.jpg";
 //import wallTexture from "../../assets/textures/greyWall.jpg";
-import floorTexture from "../../assets/textures/floor.png";
+//import floorTexture from "../../assets/textures/floor.png";
+import floorTexture from "../../assets/textures/floor6.jpg";
 import ceilingTexture from "../../assets/textures/ceilingLamps.jpg";
 
 import lights from "../../assets/3D_Components/ceiling_lamp_-_11mb.glb";
@@ -46,13 +47,10 @@ function LabScene({ video , pdf , assets=[] }) {
 
 
   const tofferLightsPositions= [
-    ["-35 15 -40","-35 15 -32","-35 15 -24","-35 15 -16","-35 15 -8","-35 15 0","-35 15 8","-35 15 16","-35 15 24","-35 15 32", "-35 15 40"],
-    ["-25 15 -40","-25 15 -32","-25 15 -24","-25 15 -16","-25 15 -8","-25 15 0","-25 15 8","-25 15 16","-25 15 24","-25 15 32", "-25 15 40"],
-    ["-15 15 -40","-15 15 -32","-15 15 -24","-15 15 -16","-15 15 -8","-15 15 0","-15 15 8","-15 15 16","-15 15 24","-15 15 32", "-15 15 40"],
-    ["0 15 -40","0 15 -32","0 15 -24","0 15 -16","0 15 -8","0 15 0","0 15 8","0 15 16","0 15 24","0 15 32", "0 15 40"],
-    ["15 15 -40","15 15 -32","15 15 -24","15 15 -16","15-35 15 -8","15 15 0","15 15 8","15 15 16","15 15 24","15 15 32", "15 15 40"],
-    ["25 15 -40","25 15 -32","25 15 -24","25 15 -16","25 15 -8","25 15 0","25 15 8","25 15 16","25 15 24","25 15 32", "25 15 40"],
-    ["35 15 -40","35 15 -32","35 15 -24","35 15 -16","35 15 -8","35 15 0","35 15 8","35 15 16","35 15 24","35 15 32", "35 15 40"],
+    ["-30 15 -31","-30 15 -18","-30 15 -4","-30 15 8.5","-30 15 23","-30 15 37"],
+    ["-10 15 -37","-10 15 -24","-10 15 -10","-10 15 2.5","-10 15 15.4", "-10 15 28.5"],
+    ["10 15 -31","10 15 -18","10 15 -4","10 15 8.5","10 15 23", "10 15 37"],
+    ["30 15 -37","30 15 -24","30 15 -10","30 15 2.5","30 15 15.4", "30 15 28.5"],
   ];
 {/* Script to play and pause the video */}
   const [isPlaying, setIsPlaying] = useState(false);
@@ -75,8 +73,7 @@ function LabScene({ video , pdf , assets=[] }) {
   };
     return (
         <>
-            <a-scene>
-                {/*Spawn point */}
+            <a-scene physics>
 
                 <a-assets>
                     <a-asset-item id="ceilingLamp" src={lights} />
@@ -95,11 +92,11 @@ function LabScene({ video , pdf , assets=[] }) {
                 <a-entity light="type: directional; intensity: 0.8" position="0 30 30" />
 
                 {/* Camera */}
-                <a-camera position="12 10 12"  rotation="0 -180 0" >
+                <a-camera position="25 10 25"  rotation="0 -90 0" >
                 </a-camera>
 
                 {/* Camera with avatar model as a child */}
-                <a-entity id="rig" position="12 8 12"  rotation="0 -180 0" movement-controls >
+                <a-entity id="rig" position="12 8 12"  rotation="0 -90 0" movement-controls >
                     <a-camera wasd-controls="acceleration: 90" look-controls="pointerLockEnabled: true">
                         {/* The avatar model is positioned relative to the camera */}
                         <a-gltf-model 
@@ -116,7 +113,7 @@ function LabScene({ video , pdf , assets=[] }) {
                     rotation="-90 0 0" 
                     width="80" 
                     height="80" 
-                    src="#floorTexture"
+                    material="src: #floorTexture; repeat: 10 10" 
                 />
 
                 {/* Walls */}
@@ -162,22 +159,22 @@ function LabScene({ video , pdf , assets=[] }) {
                     rotation="90 0 0" 
                     width="80" 
                     height="80" 
-                    material="src: #ceilingTexture; repeat: 4 5" 
+                    material="src: #ceilingTexture; repeat: 2 3" 
                 />
 
                 {/* Ceiling Lamps with Lights */}
                 <a-entity>
-                {/*
+                {
                     tofferLightsPositions.map((row, rowIndex) => (
                         row.map((position, colIndex) => (
                         <a-entity 
                             key={`${rowIndex}-${colIndex}`} 
-                            light="type: point; intensity: 1; distance: 10" 
+                            light="type: point; intensity: .6; distance: 20" 
                             position={position}
                         ></a-entity>
                         ))
                     ))
-                    */}
+                    }
 
                 </a-entity>
 
@@ -355,7 +352,7 @@ function LabScene({ video , pdf , assets=[] }) {
                 
                 <AssetViewer
                     asset={arduino_uno}
-                    position="20 5 -20"
+                    position="20 5 -5"
                     rotation="0 -45 0"
                     scale="1 1 1"
                 />
@@ -364,7 +361,9 @@ function LabScene({ video , pdf , assets=[] }) {
                 <SharedDesk position='0 0 0' rotation='0 0 0'/>
                 <SharedDesk position='0 0 -20' rotation='0 0 0'/>
                 
-
+                
+                <script src="https://cdn.jsdelivr.net/gh/schteppe/cannon.js/build/cannon.min.js"></script>
+                <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
             </a-scene>
         </>
         

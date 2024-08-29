@@ -45,7 +45,7 @@ function VideoViewer({ videoPath, position = "0 0 0", rotation = "0 0 0", scale 
         rotation="0 0 0"
         width="4"
         height="2.25"
-        loop="true"
+        loop="false"
         preload="auto"
         paused
         autoplay={false} // Ensure autoplay is disabled
